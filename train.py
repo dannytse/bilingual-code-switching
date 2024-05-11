@@ -41,8 +41,8 @@ def main():
   processor = WhisperProcessor.from_pretrained("openai/whisper-tiny")
   model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-tiny")
 
-  train_set_training = train_set.map(prepare_dataset, processor).with_format("torch")
-  test_set_training = val_set.map(prepare_dataset, processor).with_format("torch")
+  train_set_training = train_set.map(partial(prepare_dataset, processor=processor)).with_format("torch")
+  test_set_training = val_set.map(partial(prepare_dataset, processor=processor)).with_format("torch")
 
   data_collator = DataCollatorSpeechSeq2SeqWithPadding(processor=processor)
 
