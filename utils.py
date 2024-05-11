@@ -20,4 +20,4 @@ def calculate_MER(predictions, references):
     metric = evaluate.load("wer")
     predictions = [insert_space_in_code_switched_text(chinese_converter.to_simplified(string)) for string in predictions]
     references = [insert_space_in_code_switched_text(chinese_converter.to_simplified(string)) for string in references]
-    return 100 *metric.compute(predictions=predictions, references=references)
+    return 100 * metric.compute(predictions=predictions, references=references)
