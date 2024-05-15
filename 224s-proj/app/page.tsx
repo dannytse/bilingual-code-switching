@@ -6,10 +6,22 @@ import Button from "./button";
 export default function Home() {
   /* establishes modified state, rerenders on every change */
   const [userText, setUserText] = useState("");
+  const [recordingState, setRecordingState] = useState(false)
+  const [buttonText, setButtonText] = useState("Start Recording")
 
   const record = useCallback(() => {
-    setUserText(userText + "Button was pressed (in the future this would be transcribed text)! ")
-  }, [userText])
+    if (!recordingState) {
+      setRecordingState(true)
+      setButtonText("Stop Recording")
+      return;
+    } else {
+      setRecordingState(false)
+      setButtonText("Start Recording")
+      setUserText(userText + "Button was pressed (in the future this is transcribed text)! ")
+      return;
+    }
+    }, [recordingState, buttonText, userText]
+  )
 
   return (
     <main>
@@ -18,7 +30,7 @@ export default function Home() {
       </textarea>
         <div className="p-2">
           <Button onClick={record}> 
-            {"Dictate"}
+            {buttonText}
           </Button>
         </div>
       </div>
