@@ -58,8 +58,8 @@ export default function Home() {
         case 'complete':
           // Transcription complete: re-enable the Record button
           setDisabled(false);
-          
-          const transcription : string = e.data.output;
+          console.log(e.data.output.text)
+          const transcription : string = e.data.output.text;
           setUserText(userText + ' ' + transcription); // probably best to add an extra space? We'll see
           break;
       }
@@ -74,6 +74,7 @@ export default function Home() {
   const handleAudio = (blob: Blob) => {
     setDisabled(true);
     const url = URL.createObjectURL(blob);
+    console.log("URL:", url)
     worker.current.postMessage({
       url
     });
