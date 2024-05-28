@@ -6,8 +6,9 @@ env.allowLocalModels = false;
 
 class PipelineSingleton {
     static task = 'automatic-speech-recognition';
-    // static model = 'zzzdonut/cs224s-ascend-finetuned';
     static model = 'Xenova/whisper-tiny';
+    // static model = 'zzzdonut/cs224s-ascend-finetuned-onnx';
+
     static instance = null;
 
     static async getInstance(progress_callback = null) {

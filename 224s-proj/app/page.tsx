@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import React, {useState, useEffect, useRef, useCallback} from "react";
@@ -73,11 +74,13 @@ export default function Home() {
 
   const handleAudio = (blob: Blob) => {
     setDisabled(true);
-    const url = URL.createObjectURL(blob);
-    console.log("URL:", url)
-    worker.current.postMessage({
-      url
-    });
+    // const url = URL.createObjectURL(blob);
+    // console.log("URL:", url)
+    // worker.current.postMessage({
+    //   url
+    // });
+    const url = 'https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav';
+    const buffer = Buffer.from(await fetch(url).then(x => x.arrayBuffer()))
   };
 
   return (
