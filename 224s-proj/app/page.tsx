@@ -19,7 +19,7 @@ export default function Home() {
   useEffect(() => {
     if (!worker.current) {
       // Create the worker if it does not yet exist.
-      worker.current = new Worker(new URL('./worker.js', import.meta.url), {
+      worker.current = new Worker(new URL('./flaskworker.js', import.meta.url), {
         type: 'module'
       });
     }
@@ -60,8 +60,8 @@ export default function Home() {
           // Transcription complete: re-enable the Record button
           setDisabled(false);
           console.log(e.data.output.text)
-          const transcription : string = e.data.output.text;
-          setUserText(userText + ' ' + transcription); // probably best to add an extra space? We'll see
+          const transcription : string = e.data.output;
+          setUserText(userText + transcription); // probably best to add an extra space? We'll see
           break;
       }
     }
@@ -74,13 +74,11 @@ export default function Home() {
 
   const handleAudio = (blob: Blob) => {
     setDisabled(true);
-    // const url = URL.createObjectURL(blob);
-    // console.log("URL:", url)
-    // worker.current.postMessage({
-    //   url
-    // });
-    const url = 'https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav';
-    const buffer = Buffer.from(await fetch(url).then(x => x.arrayBuffer()))
+    const url = URL.createObjectURL(blob);
+    console.log("URL:", url)
+    worker.current.postMessage({
+      url
+    });
   };
 
   return (
