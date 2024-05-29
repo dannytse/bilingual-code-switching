@@ -3,6 +3,7 @@
 
 import React, {useState, useEffect, useRef, useCallback} from "react";
 import Button from "./button";
+import Recorder from 'recorder-js'
 
 export default function Home() {
   // Model loading
@@ -15,6 +16,7 @@ export default function Home() {
   const [buttonText, setButtonText] = useState("Start Recording")
 
   const worker: any = useRef(null);
+  const recorder = useRef(null);
   // We use the `useEffect` hook to set up the worker as soon as the `App` component is mounted.
   useEffect(() => {
     if (!worker.current) {
@@ -81,12 +83,29 @@ export default function Home() {
     });
   };
 
+  const startRecording = async () => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    recorder.current = new Recorder(new (window.AudioContext || window.webkitAudioContext)(), {
+      type: 'audio/wav',
+    });
+    recorder.current.init(stream);
+    recorder.current.start();
+  };
+
+  const stopRecording = async () => {
+    const { blob } = await recorder.current.stop();
+    console.log(blob)
+    handleAudio(blob)
+  };
+
   const record = useCallback(() => {
     if (!recordingState) {
       setRecordingState(true)
       setButtonText("Stop Recording")
+      startRecording()
       return;
     } else {
+      stopRecording()
       setRecordingState(false)
       setButtonText("Start Recording")
       return;

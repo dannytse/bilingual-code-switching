@@ -21,6 +21,7 @@
     "react": "^18",
     "react-audio-voice-recorder": "^2.2.0",
     "react-dom": "^18",
+    "recorder-js": "^1.0.7",
     "wavefile": "^11.0.0",
     "webm-to-wav-converter": "^1.1.0"
   },
