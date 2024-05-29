@@ -76,8 +76,7 @@ export default function Home() {
 
   const handleAudio = (blob: Blob) => {
     setDisabled(true);
-    const url = URL.createObjectURL(blob);
-    console.log("URL:", url)
+    let url = URL.createObjectURL(blob)
     worker.current.postMessage({
       url
     });

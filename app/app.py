@@ -4,8 +4,8 @@ import numpy as np
 
 app = Flask(__name__)
 
-transcriber = pipeline(model="zzzdonut/cs224s-ascend-finetuned")
-# transcriber = pipeline(model="openai/whisper-tiny")
+# transcriber = pipeline(model="zzzdonut/cs224s-ascend-finetuned")
+transcriber = pipeline(model="openai/whisper-tiny")
 
 @app.route('/transcribe', methods=['POST', 'OPTIONS'])
 def transcribe_audio():
