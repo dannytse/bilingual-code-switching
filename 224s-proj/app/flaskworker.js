@@ -35,10 +35,11 @@ async function sendRequest(audioData) {
 self.addEventListener('message', async (event) => {
     // Load audio data
     let url = 'https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav'; // replace this later
+    // let url = event.url
     let buffer = Buffer.from(await fetch(url).then(x => x.arrayBuffer()))
-
     // Read .wav file and convert it to required format
     let wav = new WaveFile(buffer);
+    wav.fromScratch
     wav.toBitDepth('32f'); // Pipeline expects input as a Float32Array
     wav.toSampleRate(16000); // Whisper expects audio with a sampling rate of 16000
     let audioData = wav.getSamples();
@@ -54,31 +55,5 @@ self.addEventListener('message', async (event) => {
     }
     // Select first channel
     audioData = Array.from(audioData[0]);
-    // let body = JSON.stringify({
-    //     'audio_data': audioData
-    // })
-    // let response = await fetch('http://127.0.0.1:5000/transcribe', {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //         'audio_data': audioData
-    //     }),
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     }
-    // });
-    // if (response.status_code == 200) {
-    //     console.log("STATUS CODE:", response.status_code)
-    //     let result = response.json()
-    //     let output = result['transcription']
-    //     console.log(output)
-
-    //     self.postMessage({
-    //         status: 'complete',
-    //         output: output
-    //     });
-    // } else {
-    //     console.log("STATUS CODE:", response.status_code)
-    //     console.log('Error:', response.text)
-    // }
     sendRequest(audioData);
 });

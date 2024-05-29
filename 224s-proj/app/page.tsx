@@ -2,8 +2,6 @@
 'use client'
 
 import React, {useState, useEffect, useRef, useCallback} from "react";
-import { AudioRecorder } from 'react-audio-voice-recorder';
-import { HfInference } from "@huggingface/inference";
 import Button from "./button";
 
 export default function Home() {
@@ -13,6 +11,8 @@ export default function Home() {
   const [progressItems, setProgressItems] = useState([]);
   /* establishes modified state, rerenders on every change */
   const [userText, setUserText] = useState("");
+  const [recordingState, setRecordingState] = useState(false)
+  const [buttonText, setButtonText] = useState("Start Recording")
 
   const worker: any = useRef(null);
   // We use the `useEffect` hook to set up the worker as soon as the `App` component is mounted.
@@ -81,26 +81,28 @@ export default function Home() {
     });
   };
 
+  const record = useCallback(() => {
+    if (!recordingState) {
+      setRecordingState(true)
+      setButtonText("Stop Recording")
+      return;
+    } else {
+      setRecordingState(false)
+      setButtonText("Start Recording")
+      return;
+    }
+    }, [recordingState, buttonText, userText]
+  )
+
   return (
     <main>
       <div  className="flex min-h-screen flex-col p-6 items-center justify-center">
       <textarea className="textarea textarea-bordered w-1/2 h-96" placeholder="Click on the button to start dictating." value ={userText} onChange={e => setUserText(e.target.value)}>
       </textarea>
         <div className="p-2">
-        <AudioRecorder
-        onRecordingComplete={handleAudio}
-        audioTrackConstraints={{
-          noiseSuppression: true,
-          echoCancellation: true,
-        }}
-        onNotAllowedOrFound={(err) => console.table(err)}
-        downloadOnSavePress={false}
-        downloadFileExtension="webm"
-        mediaRecorderOptions={{
-          audioBitsPerSecond: 128000,
-        }}
-        showVisualizer={true}
-      />
+          <Button onClick={record} disabled={disabled}> 
+            {disabled ? 'Transcribing...' : buttonText}
+          </Button>
         </div>
       </div>
     </main>

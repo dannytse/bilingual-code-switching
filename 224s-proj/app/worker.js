@@ -30,7 +30,8 @@ self.addEventListener('message', async (event) => {
     });
 
     // Load audio data
-    let url = 'https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav'; // replace this later
+    // let url = 'https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav'; // replace this later
+    let url = event.url
     let buffer = Buffer.from(await fetch(url).then(x => x.arrayBuffer()))
 
     // Read .wav file and convert it to required format

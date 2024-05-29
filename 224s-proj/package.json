@@ -21,7 +21,8 @@
     "react": "^18",
     "react-audio-voice-recorder": "^2.2.0",
     "react-dom": "^18",
-    "wavefile": "^11.0.0"
+    "wavefile": "^11.0.0",
+    "webm-to-wav-converter": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
