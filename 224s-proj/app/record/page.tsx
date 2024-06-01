@@ -5,6 +5,7 @@ import React, {useState, useEffect, useRef, useCallback} from "react";
 import Button from "../button";
 import Recorder from 'recorder-js'
 import AudioPlay from "../AudioPlay";
+import Navigation from "../Navbar";
 
 export default function Home() {
   // Model loading
@@ -115,8 +116,9 @@ export default function Home() {
 
   return (
     <main>
+      <Navigation />
       <div className="flex min-h-screen flex-col p-6 items-center justify-center">
-      <textarea className="textarea textarea-bordered w-1/2 h-96" placeholder="Click on the button to start dictating." value ={userText} onChange={e => setUserText(e.target.value)}>
+      <textarea className="textarea textarea-bordered w-1/2 h-96" placeholder="Click on the button to start recording audio." value ={userText} onChange={e => setUserText(e.target.value)}>
       </textarea>
         <div className="p-2">
           <Button onClick={record} disabled={disabled}> 
