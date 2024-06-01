@@ -4,6 +4,7 @@
 import React, {useState, useEffect, useRef, useCallback} from "react";
 import Button from "./button";
 import Recorder from 'recorder-js'
+import AudioPlay from "./AudioPlay";
 
 export default function Home() {
   // Model loading
@@ -121,6 +122,7 @@ export default function Home() {
           <Button onClick={record} disabled={disabled}> 
             {disabled ? 'Transcribing...' : buttonText}
           </Button>
+          <AudioPlay />
         </div>
       </div>
     </main>
