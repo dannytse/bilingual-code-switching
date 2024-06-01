@@ -40,7 +40,7 @@ const AudioPlay = () => {
 
   return (
     <div>
-      <button className="btn btn-primary" onClick={handleClick}>{buttonName}</button>
+      {/* <button onClick={handleClick}>{buttonName}</button> */}
       <input type="file" class="file-input file-input-bordered file-input-primary w-full max-w-xs" onChange={addFile} />
     </div>
   );
