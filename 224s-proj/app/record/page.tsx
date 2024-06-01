@@ -2,9 +2,9 @@
 'use client'
 
 import React, {useState, useEffect, useRef, useCallback} from "react";
-import Button from "./button";
+import Button from "../button";
 import Recorder from 'recorder-js'
-import AudioPlay from "./AudioPlay";
+import AudioPlay from "../AudioPlay";
 
 export default function Home() {
   // Model loading
@@ -22,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     if (!worker.current) {
       // Create the worker if it does not yet exist.
-      worker.current = new Worker(new URL('./flaskworker.js', import.meta.url), {
+      worker.current = new Worker(new URL('../flaskworker.js', import.meta.url), {
         type: 'module'
       });
     }
@@ -115,14 +115,13 @@ export default function Home() {
 
   return (
     <main>
-      <div  className="flex min-h-screen flex-col p-6 items-center justify-center">
+      <div className="flex min-h-screen flex-col p-6 items-center justify-center">
       <textarea className="textarea textarea-bordered w-1/2 h-96" placeholder="Click on the button to start dictating." value ={userText} onChange={e => setUserText(e.target.value)}>
       </textarea>
         <div className="p-2">
           <Button onClick={record} disabled={disabled}> 
             {disabled ? 'Transcribing...' : buttonText}
           </Button>
-          <AudioPlay />
         </div>
       </div>
     </main>
