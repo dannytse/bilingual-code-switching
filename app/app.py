@@ -4,7 +4,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-transcriber = pipeline(model="zzzdonut/cs224s-ascend-finetuned")
+transcriber = pipeline(model="zzzdonut/cs224s-ascend-finetune-3")
 # transcriber = pipeline(model="openai/whisper-tiny")
 
 @app.route('/transcribe', methods=['POST', 'OPTIONS'])
