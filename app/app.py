@@ -44,8 +44,8 @@ def transcribe_audio():
 
             except Exception as e:
                 print(e)
-                eng_translation = "NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
-                chi_translation = "NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+                eng_translation = str(e)
+                chi_translation = str(e)
 
             response = make_response(jsonify({
                 "transcription": transcription['text'], 
