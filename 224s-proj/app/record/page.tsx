@@ -16,6 +16,8 @@ export default function Home() {
   const [userText, setUserText] = useState("");
   const [recordingState, setRecordingState] = useState(false)
   const [buttonText, setButtonText] = useState("Start Recording")
+  const [engTranslation, setEngTranslation] = useState("");
+  const [chiTranslation, setChiTranslation] = useState("");
 
   const worker: any = useRef(null);
   const recorder = useRef(null);
@@ -65,7 +67,10 @@ export default function Home() {
           setDisabled(false);
           console.log(e.data.output.text)
           const transcription : string = e.data.output;
+          console.log(e.data)
           setUserText(userText + transcription); // probably best to add an extra space? We'll see
+          setEngTranslation(engTranslation + e.data.eng_translation);
+          setChiTranslation(chiTranslation + e.data.chi_translation);
           break;
       }
     }
@@ -114,6 +119,15 @@ export default function Home() {
     }, [recordingState, buttonText, userText]
   )
 
+  const containerStyle = {
+    width: `80%`,
+  };
+
+  const textStyle = {
+    wordWrap: 'break-word',
+    whiteSpace: 'normal',
+  };
+
   return (
     <main>
       <Navigation />
@@ -124,6 +138,10 @@ export default function Home() {
           <Button onClick={record} disabled={disabled}> 
             {disabled ? 'Transcribing...' : buttonText}
           </Button>
+        </div>
+        <div style={containerStyle}>
+          <p style={textStyle}>{engTranslation}</p>
+          <p style={textStyle}>{chiTranslation}</p>
         </div>
       </div>
     </main>

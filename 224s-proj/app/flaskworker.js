@@ -20,11 +20,15 @@ async function sendRequest(audioData) {
         let result = await response.json()
         console.log(result)
         let output = result['transcription']
+        let eng_translation = result['eng_translation']
+        let chi_translation = result['chi_translation']
         console.log(output)
 
         self.postMessage({
             status: 'complete',
-            output: output
+            output: output,
+            eng_translation: eng_translation,
+            chi_translation: chi_translation
         });
     } else {
         console.log("STATUS CODE:", response.status)
